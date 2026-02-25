@@ -290,7 +290,7 @@ mijnblacklist: {
     emoji: "💼",
     files: ["discord ban Script.txt","discordbanBot.txt","fxmanifest.txt"],
     prijs: 2,
-    type: "pack",
+    type: "scripts",
     description: "Een ban script die werkt met discord commands voor een fivem server. Verander fxmanifest.txt en discord ban script.txt naar .lua VERGEET HET NIET ALS JE KOOPT!!"
   }
 };
@@ -332,17 +332,33 @@ Object.keys(products).forEach(key => {
 
   let filesHTML = product.files.map(f => `<li>${f}</li>`).join("");
 
-card.innerHTML = `
-  <h2>${product.emoji} ${key}</h2>
-  <div class="price">€${product.prijs.toFixed(2)}</div>
-  <ul>${filesHTML}</ul>
-  <div class="description">
-    <strong>Wat het doet:</strong><br>
-    ${product.description}<br>
-    <strong>Gebruik:</strong> Hernoem naar <code>${key}.js</code>.
-    <strong>Tip:</strong> ( als het een server script is ) Hernoem naar <code>${key}.lua</code>.
-  </div>
-`;
+  let usageText;
+
+  if (key === "DiscordBanScript") {
+    usageText = `
+      <strong>Gebruik:</strong><br>
+      Hernoem <code>discord ban Script.txt</code> naar <code>discord ban Script.lua</code><br>
+      Hernoem <code>fxmanifest.txt</code> naar <code>fxmanifest.lua</code><br>
+      Hernoem <code>discordbanBot.txt</code> naar <code>discordbanBot.js</code>
+    `;
+  } else {
+    usageText = `
+      <strong>Gebruik:</strong> Hernoem naar 
+      <code>${key}.${product.type === "scripts" ? "lua" : "js"}</code>.
+    `;
+  }
+
+  card.innerHTML = `
+    <h2>${product.emoji} ${key}</h2>
+    <div class="price">€${product.prijs.toFixed(2)}</div>
+    <ul>${filesHTML}</ul>
+    <div class="description">
+      <strong>Wat het doet:</strong><br>
+      ${product.description}<br>
+      ${usageText}
+    </div>
+  `;
+
   container.appendChild(card);
 });
 
@@ -364,6 +380,31 @@ Object.keys(products).forEach(key => {
     a.onclick = () => showProduct(key);
 
     // Emoji + Naam
+    const emojiSpan = document.createElement('span');
+    emojiSpan.className = "emoji";
+    emojiSpan.textContent = products[key].emoji;
+
+    const textSpan = document.createElement('span');
+    textSpan.textContent = key;
+
+    a.appendChild(emojiSpan);
+    a.appendChild(textSpan);
+
+    sidebar.appendChild(a);
+  }
+});
+
+// Fivem Scripts
+const scriptsHeader = document.createElement('h3');
+scriptsHeader.textContent = "Fivem Scripts";
+sidebar.appendChild(scriptsHeader);
+
+Object.keys(products).forEach(key => {
+  if(products[key].type === "scripts"){
+    const a = document.createElement('a');
+    a.href = "javascript:void(0)";
+    a.onclick = () => showProduct(key);
+
     const emojiSpan = document.createElement('span');
     emojiSpan.className = "emoji";
     emojiSpan.textContent = products[key].emoji;
@@ -402,6 +443,7 @@ Object.keys(products).forEach(key => {
     sidebar.appendChild(a);
   }
 });
+
 
 // Canvas setup
 const canvas = document.getElementById('bgCanvas');
@@ -450,6 +492,5 @@ function animate() {
 
   requestAnimationFrame(animate);
 }
-
 
 animate();
