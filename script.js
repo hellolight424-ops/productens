@@ -332,21 +332,35 @@ Object.keys(products).forEach(key => {
 
   let filesHTML = product.files.map(f => `<li>${f}</li>`).join("");
 
-  let usageText;
+let usageText;
 
-  if (key === "DiscordBanScript") {
-    usageText = `
-      <strong>Gebruik:</strong><br>
-      Hernoem <code>discord ban Script.txt</code> naar <code>discord ban Script.lua</code><br>
-      Hernoem <code>fxmanifest.txt</code> naar <code>fxmanifest.lua</code><br>
-      Hernoem <code>discordbanBot.txt</code> naar <code>discordbanBot.js</code>
-    `;
-  } else {
-    usageText = `
-      <strong>Gebruik:</strong> Hernoem naar 
-      <code>${key}.${product.type === "scripts" ? "lua" : "js"}</code>.
-    `;
-  }
+if (key === "DiscordBanScript") {
+
+  usageText = `
+    <strong>Gebruik:</strong><br>
+    Hernoem <code>discord ban Script.txt</code> naar <code>discord ban Script.lua</code><br>
+    Hernoem <code>fxmanifest.txt</code> naar <code>fxmanifest.lua</code><br>
+    Hernoem <code>discordbanBot.txt</code> naar <code>discordbanBot.js</code>
+  `;
+
+} else if (product.type === "pack") {
+
+  const bestandsNamen = product.files
+    .map(file => file.replace(".txt", ".js"))
+    .join("<br>");
+
+  usageText = `
+    <strong>Gebruik ( Hernoemen ) :</strong><br>
+    ${bestandsNamen}
+  `;
+} else {
+
+  usageText = `
+    <strong>Gebruik:</strong> Hernoem naar 
+    <code>${key}.${product.type === "scripts" ? "lua" : "js"}</code>.
+  `;
+
+}
 
   card.innerHTML = `
     <h2>${product.emoji} ${key}</h2>
