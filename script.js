@@ -336,30 +336,29 @@ let usageText;
 
 if (key === "DiscordBanScript") {
 
-let usageText;
-
-if (key === "DiscordBanScript") {
   usageText = `
     <strong>Gebruik:</strong><br>
     Hernoem <code>discord ban Script.txt</code> naar <code>discord ban Script.lua</code><br>
     Hernoem <code>fxmanifest.txt</code> naar <code>fxmanifest.lua</code><br>
     Hernoem <code>discordbanBot.txt</code> naar <code>discordbanBot.js</code>
   `;
+
 } else if (product.type === "pack") {
+
   const bestandsNamen = product.files
     .map(file => file.replace(".txt", ".js"))
-    .join(", ");
-  
+    .join("<br>");
+
   usageText = `
-    <strong>Gebruik:</strong><br>
-    Noem alle bestanden naar: <code>${bestandsNamen}</code>
+    <strong>Gebruik ( Hernoemen ) :</strong><br>
+    ${bestandsNamen}
   `;
 } else {
+
   usageText = `
     <strong>Gebruik:</strong> Hernoem naar 
     <code>${key}.${product.type === "scripts" ? "lua" : "js"}</code>.
   `;
-}
 
 }
 
@@ -509,4 +508,3 @@ function animate() {
 }
 
 animate();
-
