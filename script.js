@@ -340,6 +340,7 @@ card.innerHTML = `
     <strong>Wat het doet:</strong><br>
     ${product.description}<br>
     <strong>Gebruik:</strong> Hernoem naar <code>${key}.js</code>.
+    <strong>Tip:</strong> ( als het een server script is ) Hernoem naar <code>${key}.lua</code>.
   </div>
 `;
   container.appendChild(card);
@@ -449,5 +450,6 @@ function animate() {
 
   requestAnimationFrame(animate);
 }
+
 
 animate();
