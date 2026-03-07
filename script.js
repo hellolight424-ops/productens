@@ -282,7 +282,7 @@ mijnblacklist: {
   WarnsPack: {
     emoji: "📌",
     files: ["warn.txt","warns.txt","unwarn.txt"],
-    prijs: 12,
+    prijs: 2,
     type: "pack",
     description: "Alles rondom waarschuwingen in één handig pakket."
   },
@@ -508,3 +508,4 @@ function animate() {
 }
 
 animate();
+
